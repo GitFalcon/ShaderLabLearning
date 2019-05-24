@@ -14,17 +14,17 @@ Shader "Learning/Test/SimpleShader"
             #pragma vertex vert
             #pragma fragment frag
 
-			uniform fixed4 _Color;
+            uniform fixed4 _Color;
 
-			struct appdata 
-			{
-                float4 vertex : POSITION;
-				float3 normal : NORMAL;
-				float4 texcoord : TEXCOORD0;
+            struct appdata 
+            {
+            	float4 vertex : POSITION;
+		float3 normal : NORMAL;
+		float4 texcoord : TEXCOORD0;
             };
 
             struct v2f 
-			{
+            {
                 float4 vertex : SV_POSITION;
                 fixed3 color : COLOR0;
             };        
@@ -33,7 +33,7 @@ Shader "Learning/Test/SimpleShader"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-				// show model normal by color
+		// show model normal by color
                 o.color = v.normal * 0.5 + fixed3(0.5, 0.5, 0.5);
                 return o;
             }
@@ -42,7 +42,7 @@ Shader "Learning/Test/SimpleShader"
             {
             	fixed3 c = i.color;
             	c *= _Color.rgb;
-                return fixed4(c, 1.0);	//	use alpha 1.0 for opacity
+                return fixed4(c, 1.0);	// use alpha 1.0 for opacity
             }
 
             ENDCG

@@ -30,59 +30,59 @@ Shader "Learning/Advance/Water"
             #pragma fragment frag
             #pragma target 3.0
             #include "UnityCG.cginc"
+	    
+            sampler2D _WaveTex;
+            float4 _WaveTex_ST;
+            fixed4 _WaterColor;
+            fixed4 _FarColor;
+            sampler2D _BumpTex;
+            float4 _BumpTex_ST;
+            float _BumpPower;
+            sampler2D _EdgeTex;
+            float4 _EdgeTex_ST;
+            float _EdgeRange;
+            fixed4 _EdgeColor;
+            float _WaveSize;
+            float4 _WaveOffset;
+            float _WaveSpeed;
+            fixed4 _LightColor;
+            float4 _LightVector;
+            sampler2D _CameraDepthTexture;
 
-		      sampler2D _WaveTex;
-		      float4 _WaveTex_ST;
-		      fixed4 _WaterColor;
-		      fixed4 _FarColor;
-		      sampler2D _BumpTex;
-		      float4 _BumpTex_ST;
-		      float _BumpPower;
-		      sampler2D _EdgeTex;
-		      float4 _EdgeTex_ST;
-		      float _EdgeRange;
-		      fixed4 _EdgeColor;
-		      float _WaveSize;
-		      float4 _WaveOffset;
-		      float _WaveSpeed;
-		      fixed4 _LightColor;
-		      float4 _LightVector;
-		      sampler2D _CameraDepthTexture;
+            struct appdata
+            {
+            	float4 vertex : POSITION;
+            	float3 normal : NORMAL;
+            };
 
-		      struct appdata
-		      {
-			float4 vertex : POSITION;
-			float3 normal : NORMAL;
-		      };
+            struct v2f
+            {
+            	float4 vertex : SV_POSITION;
+            	half3 normal: TEXCOORD0;
+            	float4 screenPos: TEXCOORD1;
+            	fixed3 viewDir:TEXCOORD2;
+            	fixed2 uv[2]:TEXCOORD3;
+            };
 
-		      struct v2f
-		      {
-			float4 vertex : SV_POSITION;
-			half3 normal: TEXCOORD0;
-			float4 screenPos: TEXCOORD1;
-			fixed3 viewDir:TEXCOORD2;
-			fixed2 uv[2]:TEXCOORD3;
-		      };
-
-		      v2f vert (appdata v)
-		      {
-			v2f o;
-      
-			o.vertex = UnityObjectToClipPos(v.vertex);
-      
-			float4 wPos=mul(unity_ObjectToWorld,v.vertex);
-			o.uv[0]=wPos.xz*_WaveSize+_WaveOffset.xy*_Time.y*.4;
-			o.uv[1]=wPos.xz*_WaveSize+_WaveOffset.zw*_Time.y*.4;
-      
-			o.normal=UnityObjectToWorldNormal(v.normal);
-			o.viewDir=WorldSpaceViewDir(v.vertex);
-      
-			//用于深度采集
-			o.screenPos=ComputeScreenPos(o.vertex);
-			COMPUTE_EYEDEPTH(o.screenPos.z);
-      
-			return o;
-		      }
+            v2f vert (appdata v)
+            {
+            	v2f o;
+            	
+            	o.vertex = UnityObjectToClipPos(v.vertex);
+            	
+            	float4 wPos=mul(unity_ObjectToWorld,v.vertex);
+            	o.uv[0]=wPos.xz*_WaveSize+_WaveOffset.xy*_Time.y*.4;
+            	o.uv[1]=wPos.xz*_WaveSize+_WaveOffset.zw*_Time.y*.4;
+            	
+            	o.normal=UnityObjectToWorldNormal(v.normal);
+            	o.viewDir=WorldSpaceViewDir(v.vertex);
+            	
+            	//用于深度采集
+            	o.screenPos=ComputeScreenPos(o.vertex);
+            	COMPUTE_EYEDEPTH(o.screenPos.z);
+            	
+            	return o;
+            }
 
             fixed4 frag (v2f i) : SV_Target
             {

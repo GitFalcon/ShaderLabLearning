@@ -102,47 +102,47 @@ Shader "Learning/UI/Fade"
 
             fixed4 frag(v2f i) : SV_Target
             {
-        	fixed4 col = tex2D(_MainTex, i.uv.xy) * i.color;
-        	i.uv.xy *= fixed2(_FlatX, _FlatY);
-        	fixed4 fade = tex2D(_FadeTex, max(max(i.uv.x * _FlatLeft
-        										, i.uv.y  * _FlatTop)
-        									, max((1 - i.uv.x)*  _FlatRight
-        										, (1 - i.uv.y) * _FlatBottom)));
-        	fade = lerp(1, fade, _FadeScale);
-        	#if _USE_CHANNEL_ALL
-        		#if _APPLY_CHANNEL_ALL
-        			#define FADE_CHANNEL fade
-        		#elif _APPLY_CHANNEL_R
-        			#define FADE_CHANNEL fade.r
-        		#elif _APPLY_CHANNEL_G
-        			#define FADE_CHANNEL fade.g
-        		#elif _APPLY_CHANNEL_B
-        			#define FADE_CHANNEL fade.b
-        		#elif _APPLY_CHANNEL_A
-        			#define FADE_CHANNEL fade.a
-        		#endif
-        	#elif _USE_CHANNEL_R
-        		#define FADE_CHANNEL fade.r
-        	#elif _USE_CHANNEL_G
-        		#define FADE_CHANNEL fade.g
-        	#elif _USE_CHANNEL_B
-        		#define FADE_CHANNEL fade.b
-        	#elif _USE_CHANNEL_A
-        		#define FADE_CHANNEL fade.a
-        	#endif
-        	#if _APPLY_CHANNEL_ALL
-        		#define TARGET_CHANNEL col
-        	#elif _APPLY_CHANNEL_R
-        		#define TARGET_CHANNEL col.r
-        	#elif _APPLY_CHANNEL_G
-        		#define TARGET_CHANNEL col.g
-        	#elif _APPLY_CHANNEL_B
-        		#define TARGET_CHANNEL col.b
-        	#elif _APPLY_CHANNEL_A
-        		#define TARGET_CHANNEL col.a
-        	#endif
-        	TARGET_CHANNEL *= FADE_CHANNEL;
-        	return col;
+            	fixed4 col = tex2D(_MainTex, i.uv.xy) * i.color;
+            	i.uv.xy *= fixed2(_FlatX, _FlatY);
+            	fixed4 fade = tex2D(_FadeTex, max(max(i.uv.x * _FlatLeft
+            										, i.uv.y  * _FlatTop)
+            									, max((1 - i.uv.x)*  _FlatRight
+            										, (1 - i.uv.y) * _FlatBottom)));
+            	fade = lerp(1, fade, _FadeScale);
+            	#if _USE_CHANNEL_ALL
+            		#if _APPLY_CHANNEL_ALL
+            			#define FADE_CHANNEL fade
+            		#elif _APPLY_CHANNEL_R
+            			#define FADE_CHANNEL fade.r
+            		#elif _APPLY_CHANNEL_G
+            			#define FADE_CHANNEL fade.g
+            		#elif _APPLY_CHANNEL_B
+            			#define FADE_CHANNEL fade.b
+            		#elif _APPLY_CHANNEL_A
+            			#define FADE_CHANNEL fade.a
+            		#endif
+            	#elif _USE_CHANNEL_R
+            		#define FADE_CHANNEL fade.r
+            	#elif _USE_CHANNEL_G
+            		#define FADE_CHANNEL fade.g
+            	#elif _USE_CHANNEL_B
+            		#define FADE_CHANNEL fade.b
+            	#elif _USE_CHANNEL_A
+            		#define FADE_CHANNEL fade.a
+            	#endif
+            	#if _APPLY_CHANNEL_ALL
+            		#define TARGET_CHANNEL col
+            	#elif _APPLY_CHANNEL_R
+            		#define TARGET_CHANNEL col.r
+            	#elif _APPLY_CHANNEL_G
+            		#define TARGET_CHANNEL col.g
+            	#elif _APPLY_CHANNEL_B
+            		#define TARGET_CHANNEL col.b
+            	#elif _APPLY_CHANNEL_A
+            		#define TARGET_CHANNEL col.a
+            	#endif
+            	TARGET_CHANNEL *= FADE_CHANNEL;
+            	return col;
             }
 
             ENDCG

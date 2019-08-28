@@ -35,3 +35,4 @@ sysinfo.txt
 
 # ignore test
 /Assets/[Tt]est*
+/Assets/Plugins*

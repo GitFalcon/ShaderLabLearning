@@ -2,7 +2,7 @@ Shader "Learning/Advance/Shadow_Volume"
 {
 	Properties
 	{
-		_Color("Color Tint", color) = (0, 0, 0, 1)
+		_Color("Shadow Color", color) = (0, 0, 0, 1)
 		_LightDirection("Light Direction(XYZ), Floor(W)", Vector) = (6, 27, 14, 0)
 		_Weakness("Weakness", Range(0.1, 100)) = 0.5
 	}
